@@ -59,19 +59,19 @@ class Stream:
         self.video_codec, self.audio_codec = self.parse_codecs()
 
         self.is_otf: bool = stream["is_otf"]
-        self.bitrate: Optional[int] = stream["bitrate"]
+        self.bitrate: int = stream.get("bitrate", 0)
 
         # filesize in bytes
-        self._filesize: Optional[int] = int(stream.get('contentLength', 0))
+        self._filesize: int = int(stream.get('contentLength', 0))
         
         # filesize in kilobytes
-        self._filesize_kb: Optional[float] = float(ceil(float(stream.get('contentLength', 0)) / 1024 * 1000) / 1000)
+        self._filesize_kb: float = float(ceil(float(stream.get('contentLength', 0)) / 1024 * 1000) / 1000)
         
         # filesize in megabytes
-        self._filesize_mb: Optional[float] = float(ceil(float(stream.get('contentLength', 0)) / 1024 / 1024 * 1000) / 1000)
+        self._filesize_mb: float = float(ceil(float(stream.get('contentLength', 0)) / 1024 / 1024 * 1000) / 1000)
         
         # filesize in gigabytes(fingers crossed we don't need terabytes going forward though)
-        self._filesize_gb: Optional[float] = float(ceil(float(stream.get('contentLength', 0)) / 1024 / 1024 / 1024 * 1000) / 1000)
+        self._filesize_gb: float = float(ceil(float(stream.get('contentLength', 0)) / 1024 / 1024 / 1024 * 1000) / 1000)
 
         # Additional information about the stream format, such as resolution,
         # frame rate, and whether the stream is live (HLS) or 3D.
